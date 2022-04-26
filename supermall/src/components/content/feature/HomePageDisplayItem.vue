@@ -2,8 +2,8 @@
   <div class="book" @click="seeDetails">
     <img :src="baseURL + book.url" alt="">
     <p class="title">{{book.title}}</p>
-    <p class="price">${{book.price}}</p>
-    <p style="display: inline;">网上价格</p>
+    <p v-if="book.price" class="price">${{book.price}}</p>
+    <p v-if="book.price" style="display: inline;">网上价格</p>
   </div>
 </template>
 
