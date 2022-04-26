@@ -21,12 +21,17 @@
     <div v-if="detail.description" class="content">
       <p class="description">{{detail.description}}</p>
     </div>
+    <alert-box v-if="added">
+      添加成功!
+    </alert-box>
   </div>
 </template>
 
 <script>
 import { addItem } from "@/views/cart/cartMethod.js"
+import AlertBox from "@/components/common/dialogBox/AlertBox"
 export default {
+  components: { AlertBox },
   name: "DetailDisplay",
   props: {
     detail: {
@@ -36,13 +41,17 @@ export default {
   },
   data() {
     return {
-      quantity: 1
+      quantity: 1,
+      added: false
     }
   },
   methods: {
     addToCart() {
-      addItem(this.detail.isbn, this.quantity).then(res => {
-        console.log(res);
+      addItem(this.detail.isbn, this.quantity).then(() => {
+        this.added = true;
+        setTimeout(() => {
+          this.added = false;
+        }, 2500);
       });
     }
   }

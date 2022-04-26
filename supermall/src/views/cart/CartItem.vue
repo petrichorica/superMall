@@ -33,7 +33,8 @@ export default {
   data() {
     return {
       value: null,
-      checked: true
+      checked: true,
+      deleted: false
     }
   },
   created() {
@@ -44,8 +45,7 @@ export default {
       return "S$" + price.toFixed(2);
     },
     delItem() {
-      deleteItem(this.item.isbn).then(res => {
-        console.log(res);
+      deleteItem(this.item.isbn).then(() => {
         this.$emit('delItem', this.item.isbn);
       })
     },

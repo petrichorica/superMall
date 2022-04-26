@@ -4,11 +4,17 @@
       <template v-slot:center>
         购物车
       </template>
+      <template v-slot:left>
+        <img class="back" @click="back" src="@/assets/img/return.svg" alt="">
+      </template>
     </nav-bar>
     <div class="cart-display" v-if="cartList">
       <cart-item @delItem="delItem" @quantity="quantity" @select="select" v-for="item in cartList" :key="item.id" :item="item" />
     </div>
     <bottom-bar :total="total" />
+    <alert-box v-if="deleted">
+      已删除商品
+    </alert-box>
   </div>
 </template>
 
@@ -18,15 +24,17 @@ import { getDetail } from "@/network/detail.js"
 import NavBar from "@/components/content/navbar/NavBar"
 import CartItem from "@/views/cart/CartItem"
 import BottomBar from "@/views/cart/BottomBar"
+import AlertBox from '@/components/common/dialogBox/AlertBox.vue'
 export default {
   name: "Cart",
   components: {
-    NavBar, CartItem, BottomBar
+    NavBar, CartItem, BottomBar, AlertBox
   },
   data() {
     return {
       cartList: [],
-      orderList: []
+      orderList: [],
+      deleted: false
     }
   },
   created() {
@@ -40,6 +48,9 @@ export default {
     })
   },
   methods: {
+    back() {
+      this.$router.back();
+    },
     getPrice(priceStr) {
       if (priceStr.startsWith("S$")) {
         return parseInt(priceStr.slice(2));
@@ -105,6 +116,11 @@ export default {
       if (typeof index2 !== 'undefined') {
         this.orderList.splice(index2, 1);
       }
+
+      this.deleted = true;
+      setTimeout(() => {
+        this.deleted = false;
+      }, 2500);
     }
   },
   computed: {
@@ -127,5 +143,8 @@ export default {
   top: var(--nav-bar-height);
   margin-bottom: 120px;
   padding: 10px;
+}
+.back {
+  width: 20px;
 }
 </style>
