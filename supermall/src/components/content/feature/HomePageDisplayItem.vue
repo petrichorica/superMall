@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      baseURL: "http://localhost:3000"
+      baseURL: "http://35.220.166.211:3000"
     }
   },
   methods: {
