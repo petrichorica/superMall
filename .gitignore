@@ -1,0 +1,12 @@
+node_modules/
+business_book_info.json
+children_book_info.json
+detail.json
+detail.py
+features_detail.json
+features.py
+features.json
+fiction_book_info.json
+history_book_info.json
+philosophy_book_info.json
+spider.py
